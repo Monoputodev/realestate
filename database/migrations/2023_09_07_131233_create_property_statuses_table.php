@@ -16,6 +16,7 @@ class CreatePropertyStatusesTable extends Migration
         Schema::create('property_statuses', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('status')->default(1);
             $table->timestamps();
         });
     }
@@ -25,7 +26,7 @@ class CreatePropertyStatusesTable extends Migration
      *
      * @return void
      */
-    
+
     public function down()
     {
         Schema::dropIfExists('property_statuses');

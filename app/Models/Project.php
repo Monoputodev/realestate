@@ -10,8 +10,10 @@ class Project extends Model
         'title',
         'image',
         'thumbnail',
-        'service',
+        'subtitle',
         'location',
+        'propertystatus',
+        'propertytype',
         'apartment_size',
         'bedroom',
         'completion_date',
@@ -21,4 +23,18 @@ class Project extends Model
         'brochure',
         'floor_plan',
     ];
+
+
+    public function plocation()
+    {
+        return $this->hasOne(Location::class, 'id', 'location');
+    }
+    public function ptype()
+    {
+        return $this->hasOne(PropertyType::class, 'id', 'propertytype');
+    }
+    public function pstatus()
+    {
+        return $this->hasOne(PropertyStatus::class, 'id', 'propertystatus');
+    }
 }

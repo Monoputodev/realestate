@@ -84,7 +84,21 @@
                 </div>
                 <div class="property-info p-4 mt-5">
                     <div class="row">
+                        <div class="col-md-6">
+                            <div class="stat_box p-2">
+                                <h5 class="text-center text-success">Appartment Type</h5>
+                                <h6 class="text-center text-dark">{{ $project->ptype->name }}</h6>
+                            </div>
 
+                        </div>
+                        <div class="col-md-6">
+                            <div class="stat_box p-2">
+                                <h5 class="text-center text-success">Appartment Location</h5>
+                                <h6 class="text-center text-dark">{{ $project->plocation->name }}</h6>
+                            </div>
+
+                        </div>
+                        <hr>
 
                         <div class="col-md-6">
                             <div class="stat_box p-2">
@@ -109,7 +123,7 @@
                         <div class="col-md-6">
                             <div class="stat_box p-2">
                                 <h5 class="text-center text-success">Status </h5>
-                                <h6 class="text-center text-dark">{{ $project->status }}</h6>
+                                <h6 class="text-center text-dark">{{ $project->pstatus->name }}</h6>
                             </div>
                         </div>
 

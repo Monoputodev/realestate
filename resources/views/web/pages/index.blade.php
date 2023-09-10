@@ -4,6 +4,7 @@
 <!--=================================
 banner -->
 @include('web.components.hero')
+@include('web.components.filter')
 
 @include('web.components.about')
 <!--=================================

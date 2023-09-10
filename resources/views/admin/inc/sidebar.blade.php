@@ -51,6 +51,47 @@
         <ul class="sub-menu" aria-expanded="false">
             <li><a href="{{ route('projects.index') }}" key="t-list">All Project</a></li>
             <li><a href="{{ route('projects.create') }}" key="t-create">Create Project</a></li>
+            <li>
+                <a href="javascript: void(0);" class="has-arrow waves-effect">
+                    <i class="bx bx-home-circle"></i>
+                    <span key="t-attribiutes">attribiutes</span>
+                </a>
+                <ul class="sub-menu" aria-expanded="false">
+                    <li>
+                        <a href="javascript: void(0);" class="has-arrow waves-effect">
+                            <i class="bx bx-home-circle"></i>
+                            <span key="t-location">location</span>
+                        </a>
+                        <ul class="sub-menu" aria-expanded="false">
+                            <li><a href="{{ route('locations.index') }}" key="t-list">All location</a></li>
+                            <li><a href="{{ route('locations.create') }}" key="t-create">Create location</a></li>
+
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="javascript: void(0);" class="has-arrow waves-effect">
+                            <i class="bx bx-home-circle"></i>
+                            <span key="t-propertytype">Property Type</span>
+                        </a>
+                        <ul class="sub-menu" aria-expanded="false">
+                            <li><a href="{{ route('propertytypes.index') }}" key="t-list">All Property Type</a></li>
+                            <li><a href="{{ route('propertytypes.create') }}" key="t-create">Create Property Type</a></li>
+
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="javascript: void(0);" class="has-arrow waves-effect">
+                            <i class="bx bx-home-circle"></i>
+                            <span key="t-propertystatus">Property Status</span>
+                        </a>
+                        <ul class="sub-menu" aria-expanded="false">
+                            <li><a href="{{ route('propertystatus.index') }}" key="t-list">All Property Status</a></li>
+                            <li><a href="{{ route('propertystatus.create') }}" key="t-create">Create Property Status</a></li>
+
+                        </ul>
+                    </li>
+                </ul>
+            </li>
 
         </ul>
     </li>

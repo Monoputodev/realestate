@@ -18,16 +18,18 @@ class CreateProjectsTable extends Migration
             $table->string('title');
             $table->string('image');
             $table->string('thumbnail');
-            $table->string('service');
-            $table->string('location')->nullable();
+            $table->string('subtitle');
+            $table->integer('location')->nullable();
+            $table->integer('propertystatus')->nullable();
+            $table->integer('propertytype')->nullable();
             $table->string('apartment_size')->nullable();
             $table->string('bedroom')->nullable();
             $table->string('completion_date')->nullable();
-            $table->string('status')->nullable();
             $table->longText('experience')->nullable();
             $table->longText('features')->nullable();
             $table->string('brochure')->nullable();
             $table->longText('floor_plan')->nullable();
+            $table->integer('status')->nullable()->default(1);
             $table->timestamps();
         });
     }

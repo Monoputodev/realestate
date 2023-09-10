@@ -7,9 +7,12 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ContentController;
 use App\Http\Controllers\FaqController;
 use App\Http\Controllers\HeroController;
+use App\Http\Controllers\LocationController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\PhotoController;
 use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\PropertyStatusController;
+use App\Http\Controllers\PropertyTypeController;
 use App\Http\Controllers\PublicController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\TestimonialController;
@@ -30,6 +33,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/mail', [PublicController::class, 'mail'])->name('mail');
 Route::get('/', [PublicController::class, 'index'])->name('index');
+Route::post('/filter', [PublicController::class, 'filter'])->name('filter');
 Route::get('/dashboard', [PublicController::class, 'dashboard'])->middleware('auth')->name('dashboard.index');
 Route::get('/news/{blog}', [PublicController::class, 'blogDetails'])->name('blog.details');
 Route::get('/News', [PublicController::class, 'blogs'])->name('blogs.all');
@@ -161,6 +165,45 @@ Route::prefix('/dashboard')->middleware('auth', 'admin')->group(function () {
         Route::get('/active/{client}', [ClientController::class, 'active'])->name('clients.active');
         Route::get('/inactive/{client}', [ClientController::class, 'inactive'])->name('clients.inactive');
     });
+
+    Route::prefix('locations')->group(function () {
+        // location-Routes
+        Route::get('/', [LocationController::class, 'index'])->name('locations.index');
+        Route::get('/create', [LocationController::class, 'create'])->name('locations.create');
+        Route::post('/', [LocationController::class, 'store'])->name('locations.store');
+        Route::get('/{location}', [LocationController::class, 'show'])->name('locations.show');
+        Route::get('/{location}/edit', [LocationController::class, 'edit'])->name('locations.edit');
+        Route::put('/{location}', [LocationController::class, 'update'])->name('locations.update');
+        Route::get('/{location}', [LocationController::class, 'destroy'])->name('locations.destroy');
+        Route::get('/active/{location}', [LocationController::class, 'active'])->name('locations.active');
+        Route::get('/inactive/{location}', [LocationController::class, 'inactive'])->name('locations.inactive');
+    });
+    Route::prefix('propertystatus')->group(function () {
+        // propertystatus-Routes
+        Route::get('/', [PropertyStatusController::class, 'index'])->name('propertystatus.index');
+        Route::get('/create', [PropertyStatusController::class, 'create'])->name('propertystatus.create');
+        Route::post('/', [PropertyStatusController::class, 'store'])->name('propertystatus.store');
+        Route::get('/{propertystatus}', [PropertyStatusController::class, 'show'])->name('propertystatus.show');
+        Route::get('/{propertystatus}/edit', [PropertyStatusController::class, 'edit'])->name('propertystatus.edit');
+        Route::put('/{propertystatus}', [PropertyStatusController::class, 'update'])->name('propertystatus.update');
+        Route::get('/{propertystatus}', [PropertyStatusController::class, 'destroy'])->name('propertystatus.destroy');
+        Route::get('/active/{propertystatus}', [PropertyStatusController::class, 'active'])->name('propertystatus.active');
+        Route::get('/inactive/{propertystatus}', [PropertyStatusController::class, 'inactive'])->name('propertystatus.inactive');
+    });
+
+    Route::prefix('propertytypes')->group(function () {
+        // propertytype-Routes
+        Route::get('/', [PropertyTypeController::class, 'index'])->name('propertytypes.index');
+        Route::get('/create', [PropertyTypeController::class, 'create'])->name('propertytypes.create');
+        Route::post('/', [PropertyTypeController::class, 'store'])->name('propertytypes.store');
+        Route::get('/{propertytype}', [PropertyTypeController::class, 'show'])->name('propertytypes.show');
+        Route::get('/{propertytype}/edit', [PropertyTypeController::class, 'edit'])->name('propertytypes.edit');
+        Route::put('/{propertytype}', [PropertyTypeController::class, 'update'])->name('propertytypes.update');
+        Route::get('/{propertytype}', [PropertyTypeController::class, 'destroy'])->name('propertytypes.destroy');
+        Route::get('/active/{propertytype}', [PropertyTypeController::class, 'active'])->name('propertytypes.active');
+        Route::get('/inactive/{propertytype}', [PropertyTypeController::class, 'inactive'])->name('propertytypes.inactive');
+    });
+
 
     Route::prefix('heros')->group(function () {
         // hero-Routes

@@ -7,10 +7,15 @@ use App\Models\Blog;
 use App\Models\Client;
 use App\Models\Contact;
 use App\Models\Hero;
+use App\Models\Location;
 use App\Models\Photo;
 use App\Models\Project;
+use App\Models\PropertyStatus;
+use App\Models\PropertyType;
 use App\Models\Service;
 use App\Models\Testimonial;
+
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class PublicController extends Controller
@@ -28,11 +33,44 @@ class PublicController extends Controller
         $heros = Hero::where('status', '1')->orderBy('id', 'DESC')->get();
         $awards = Award::where('status', '1')->orderBy('ranking', 'ASC')->get();
         $projects = Project::orderBy('created_at', 'ASC')->get();
-        return view('web.pages.index', compact('awards', 'testimonials', 'blogs', 'heros', 'photos', 'clients', 'projects'));
+
+
+        $propertystatus = PropertyStatus::where('status', 1)->get();
+        $type = PropertyType::where('status', 1)->get();
+        $location = Location::where('status', 1)->get();
+
+        return view('web.pages.index', compact('awards', 'testimonials', 'blogs', 'heros', 'photos', 'clients', 'projects', 'propertystatus', 'type', 'location'));
     }
 
 
+    public function filter(Request $request)
+    {
 
+
+        $propertystatus = PropertyStatus::where('status', 1)->get();
+        $type = PropertyType::where('status', 1)->get();
+        $location = Location::where('status', 1)->get();
+
+
+        $data = $request->all();
+
+        $query = Project::query();
+        if ($data['status'] !== '0') {
+            $query->where('propertystatus', $data['status']);
+        }
+
+        if ($data['type'] !== '0') {
+            $query->where('propertytype', $data['type']);
+        }
+
+        if ($data['location'] !== '0') {
+            $query->where('location', $data['location']);
+        }
+        $projects = $query->get();
+
+        // dd($projects);
+        return view('web.pages.project.filtered', compact('projects', 'propertystatus', 'type', 'location'));
+    }
 
     public function dashboard()
     {

@@ -22,6 +22,9 @@ class DatabaseSeeder extends Seeder
             BlogSeeder::class,
             TestimonialSeeder::class,
             AwardSeeder::class,
+            LocationSeeder::class,
+            PropertyStatusSeeder::class,
+            PropertyTypeSeeder::class,
         ]);
     }
 }

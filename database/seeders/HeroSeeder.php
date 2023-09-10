@@ -18,19 +18,19 @@ class HeroSeeder extends Seeder
             [
                 'title' => 'Find Your Dream Home',
                 'subtitle' => 'Discover the perfect property that suits your needs',
-                'image' => 'hero_image1.jpg',
+                'image' => '1692782373.jpg',
                 'status' => 1,
             ],
             [
                 'title' => 'Sell Your Property with Ease',
                 'subtitle' => 'List your property and reach potential buyers effortlessly',
-                'image' => 'hero_image2.jpg',
+                'image' => '1692782380.jpg',
                 'status' => 1,
             ],
             [
                 'title' => 'Expert Real Estate Services',
                 'subtitle' => 'Trustworthy real estate professionals to guide you',
-                'image' => 'hero_image3.jpg',
+                'image' => '1692782386.jpg',
                 'status' => 1,
             ],
         ];

@@ -20,12 +20,12 @@
             <div class="row">
                 <div class="col-12">
                     <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                        <h4 class="mb-sm-0 font-size-18">Project</h4>
+                        <h4 class="mb-sm-0 font-size-18">Property Status</h4>
 
                         <div class="page-title-right">
                             <ol class="breadcrumb m-0">
                                 <li class="breadcrumb-item">Dashboards</li>
-                                <li class="breadcrumb-item active">Project</li>
+                                <li class="breadcrumb-item active">Property Status</li>
                             </ol>
                         </div>
 
@@ -41,31 +41,22 @@
                         <div class="card-body">
 
                             <a class="btn btn-soft-primary waves-effect waves-light mb-2"
-                              href="{{ route('projects.create') }}">
-                                + Create New Project </a>
+                              href="{{ route('propertystatus.create') }}">
+                                + Create New Property Status </a>
 
                             <table id="datatable-buttons" class="table table-bordered dt-responsive nowrap w-100">
                                 <thead>
                                     <tr>
                                         <th>status</th>
-                                        <th>Title</th>
-                                        <th>Subtitle</th>
-                                        <th>Location</th>
-                                        <th>Property type</th>
-                                        <th>Property Status</th>
-                                        <th>Apartment Size</th>
-                                        <th>Bedroom</th>
-                                        <th>Completion Date</th>
-                                        <th>Image</th>
-                                        <th>Thumbnail</th>
+                                        <th>name</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($projects as $project)
+                                    @foreach ($propertystatus as $propertystatus)
                                     <tr>
                                         <td>
-                                            @if($project->status == 1)
+                                            @if ($propertystatus->status == 1)
                                             <span
                                               class="badge rounded-pill badge-soft-success font-size-11">Active</span>
                                             @else
@@ -73,44 +64,30 @@
                                               class="badge rounded-pill badge-soft-danger font-size-11">Inactive</span>
                                             @endif
                                         </td>
-                                        <td>{{ $project->title }}</td>
-                                        <td>{{ $project->subtitle }}</td>
-                                        <td>{{ $project->plocation->name }}</td>
-                                        <td>{{ $project->ptype->name }}</td>
-                                        <td>{{ $project->pstatus->name }}</td>
-                                        <td>{{ $project->apartment_size }}</td>
-                                        <td>{{ $project->bedroom }}</td>
-                                        <td>{{ $project->completion_date }}</td>
+                                        <td>{{ $propertystatus->name }}</td>
+
+
 
                                         <td>
-                                            @if ($project->image)
-                                            <img height="100"
-                                              src="{{ asset('uploads/projects/' . $project->thumbnail) }}"
-                                              alt="{{ $project->title }}" width="80">
+                                            @if ($propertystatus->status == 1)
+                                            <a class="btn btn-danger waves-effect btn-circle waves-light"
+                                              href="{{ route('propertystatus.inactive', $propertystatus->id) }}">
+                                                <i class="fa fa-eye-slash"></i> </a>
                                             @else
-                                            No Image
+                                            <a class="btn btn-success waves-effect btn-circle waves-light"
+                                              href="{{ route('propertystatus.active', $propertystatus->id) }}">
+                                                <i class="fa fa-eye"></i> </a>
                                             @endif
-                                        </td>
-                                        <td>
-                                            @if ($project->image)
-                                            <img height="100" src="{{ asset('uploads/projects/' . $project->image) }}"
-                                              alt="{{ $project->title }}" width="80">
-                                            @else
-                                            No Image
-                                            @endif
-                                        </td>
-                                        <td>
-
 
                                             <a class="btn btn-primary waves-effect btn-circle waves-light"
-                                              href="{{ route('projects.edit', $project->id) }}">
+                                              href="{{ route('propertystatus.edit', $propertystatus->id) }}">
                                                 <i class="fa fa-edit"></i> </a>
-                                            <form hidden action="{{ route('projects.destroy', $project->id) }}"
-                                              id="form{{ $project->id }}" method="get">
+                                            <form hidden action="{{ route('propertystatus.destroy', $propertystatus->id) }}"
+                                              id="form{{ $propertystatus->id }}" method="get">
                                                 @csrf
                                             </form>
                                             <button class="btn btn-danger waves-effect btn-circle waves-light"
-                                              onclick="deleteItem({{ $project->id }});" type="button">
+                                              onclick="deleteItem({{ $propertystatus->id }});" type="button">
                                                 <i class="fa fa-trash"></i> </button>
                                         </td>
 

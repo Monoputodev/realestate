@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Location;
 use App\Models\Project;
+use App\Models\PropertyStatus;
+use App\Models\PropertyType;
 use App\Models\Service;
 use Illuminate\Http\Request;
 use Intervention\Image\ImageManagerStatic as Image;
@@ -32,9 +35,11 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        // dd(public_path());
-        $services = Service::all();
-        return view('admin.pages.project.create', compact('services'));
+        $propertystatus = PropertyStatus::where('status',1)->get();
+        $type = PropertyType::where('status',1)->get();
+        $location = Location::where('status',1)->get();
+//  dd($status);
+        return view('admin.pages.project.create', compact('propertystatus','type','location'));
     }
 
     /**
@@ -45,15 +50,15 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->all());
         $data = $request->validate([
             'title' => 'required',
-            'service' => 'required',
+            'subtitle' => 'required',
             'location' => 'nullable',
             'apartment_size' => 'nullable',
             'bedroom' => 'nullable|numeric',
             'completion_date' => 'nullable',
-            'status' => 'nullable',
+            'propertystatus' => 'nullable',
+            'propertytype' => 'nullable',
             'experience' => 'nullable',
             'features' => 'nullable',
             'brochure' => 'nullable|mimes:pdf',
@@ -61,6 +66,7 @@ class ProjectController extends Controller
             'image' => 'required|image|max:2048', // max file size of 2MB
             'thumbnail' => 'required|image|max:2048', // max file size of 2MB
         ]);
+        //  dd($data);
         if ($request->hasFile('image')) {
             $image = $request->file('image');
             $imageName = time() . '.' . $image->extension();
@@ -118,9 +124,11 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
-        $services = Service::all();
+        $propertystatus = PropertyStatus::where('status',1)->get();
+        $type = PropertyType::where('status',1)->get();
+        $location = Location::where('status',1)->get();
 
-        return view('admin.pages.project.edit', compact('project', 'services'));
+        return view('admin.pages.project.edit', compact('project','propertystatus','type','location'));
     }
 
     /**
@@ -134,12 +142,13 @@ class ProjectController extends Controller
     {
         $data = $request->validate([
             'title' => 'required',
-            'service' => 'required',
+            'subtitle' => 'required',
             'location' => 'nullable',
             'apartment_size' => 'nullable',
             'bedroom' => 'nullable|numeric',
             'completion_date' => 'nullable',
-            'status' => 'nullable',
+            'propertystatus' => 'nullable',
+            'propertytype' => 'nullable',
             'experience' => 'nullable',
             'features' => 'nullable',
 

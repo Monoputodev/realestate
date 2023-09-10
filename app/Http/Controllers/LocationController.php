@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Location;
 use Illuminate\Http\Request;
+use Intervention\Image\ImageManagerStatic as Image;
+
+// namespace Intervention\Image\Facades;
+
 
 class LocationController extends Controller
 {
@@ -14,7 +18,10 @@ class LocationController extends Controller
      */
     public function index()
     {
-        //
+
+        $locations = Location::all();
+        // dd($locations);
+        return view('admin.pages.location.index', compact('locations'));
     }
 
     /**
@@ -24,7 +31,8 @@ class LocationController extends Controller
      */
     public function create()
     {
-        //
+        // dd(public_path());
+        return view('admin.pages.location.create');
     }
 
     /**
@@ -35,7 +43,19 @@ class LocationController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //  dd($request->all());
+        $data = $request->validate([
+            'name' => 'required',
+        ]);
+
+        $location = Location::create($data);
+
+        if ($location) {
+            return redirect()->route('locations.index')->with('success', 'Location created successfully.');
+            # code...
+        } else {
+            return back()->with('error', 'Location creating showing error.');
+        }
     }
 
     /**
@@ -46,7 +66,7 @@ class LocationController extends Controller
      */
     public function show(Location $location)
     {
-        //
+        return view('admin.pages.location.view', compact('location'));
     }
 
     /**
@@ -57,7 +77,7 @@ class LocationController extends Controller
      */
     public function edit(Location $location)
     {
-        //
+        return view('admin.pages.location.edit', compact('location'));
     }
 
     /**
@@ -69,8 +89,23 @@ class LocationController extends Controller
      */
     public function update(Request $request, Location $location)
     {
-        //
+        $data = $request->validate([
+            'name' => 'nullable',
+        ]);
+
+
+        $location = $location->update($data);
+
+
+
+        if ($location) {
+            return redirect()->route('locations.index')->with('success', 'Location Updated successfully.');
+            # code...
+        } else {
+            return back()->with('error', 'Location Update showing error.');
+        }
     }
+
 
     /**
      * Remove the specified resource from storage.
@@ -80,6 +115,49 @@ class LocationController extends Controller
      */
     public function destroy(Location $location)
     {
-        //
+        // delete the location's image file, if it exists
+
+        // delete the location from the database
+        $location->delete();
+
+        return redirect()->route('locations.index')->with('success', 'Location deleted successfully.');
+    }
+
+
+
+    /**
+     * Active the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Location  $location
+     * @return \Illuminate\Http\Response
+     */
+    public function Active(Location $location)
+    {
+
+        $location->status = '1';
+        if ($location->save()) {
+            return redirect()->route('locations.index')->with('success', 'location Activated successfully.');
+        } else {
+            return back()->with('error', 'location Activation Unsuccessfull');
+        }
+    }
+    /**
+     * Inactive  the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Location  $location
+     * @return \Illuminate\Http\Response
+     */
+    public function Inactive(Location $location)
+
+    {
+        // dd($location->status);
+        $location->status = '0';
+        if ($location->save()) {
+            return redirect()->route('locations.index')->with('success', 'location Deactivated successfully.');
+        } else {
+            return back()->with('error', 'location Dactivation Unsuccessfull.');
+        }
     }
 }
